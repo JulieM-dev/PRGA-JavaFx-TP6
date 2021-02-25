@@ -16,7 +16,6 @@ public class GrilleController implements Controller
 	public void init()
 	{
 		
-		
 	}
 	
 	@Override
