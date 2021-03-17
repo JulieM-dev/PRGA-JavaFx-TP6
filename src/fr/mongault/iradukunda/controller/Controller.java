@@ -5,7 +5,7 @@ import fr.mongault.iradukunda.MainTP6;
 public interface Controller {
    void setMainApp(MainTP6 mainApp);
    
-   void init();
+   void initialize();
 
    String getNOMMETHODE();
 }

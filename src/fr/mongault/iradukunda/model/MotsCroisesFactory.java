@@ -2,9 +2,9 @@ package fr.mongault.iradukunda.model;
 
 public class MotsCroisesFactory
 {
-	public static MotsCroises creerMotsCroises2x3()
+	public static MotsCroisesTP6 creerMotsCroises2x3()
 	{
-		MotsCroises mc = new MotsCroises(2,3) ;
+		MotsCroisesTP6 mc = new MotsCroisesTP6(2,3) ;
 		for (int i=1; i<=mc.getHauteur(); i++)
 			for (int j=1; j<=mc.getLargeur(); j++)
 			{

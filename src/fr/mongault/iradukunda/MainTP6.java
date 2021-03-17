@@ -38,7 +38,7 @@ public class MainTP6 extends Application
         initRootLayout();
         
         //TODO Place here your home page
-        showView("GrilleView");
+        showView("VueTP6");
 	}
 	
     private void initRootLayout() {
@@ -76,7 +76,6 @@ public class MainTP6 extends Application
             // Récupère le controller et lui donne l'accès à l'application MainApp.
             Controller controller = loader.getController();
             controller.setMainApp(this);
-            controller.init();
             this.primaryStage.setTitle(TITLE + controller.getNOMMETHODE());
         } catch (IOException e) {
             e.printStackTrace();

@@ -47,7 +47,7 @@ public class MenuController implements Controller
 		}
 
 		@Override
-		public void init()
+		public void initialize()
 		{
 			// TODO Auto-generated method stub
 			

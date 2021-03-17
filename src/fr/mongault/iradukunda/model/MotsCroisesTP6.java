@@ -21,6 +21,7 @@ public class MotsCroisesTP6 implements SpecifMotsCroises
 			for (int col=1; col<=getLargeur(); col++)
 			{
 				setCaseNoire(lig, col, true);
+				proposition.setCellule(lig, col, new SimpleStringProperty("")) ;
 			}
 		}
 	}
@@ -114,7 +115,7 @@ public class MotsCroisesTP6 implements SpecifMotsCroises
 	{
 		assert coordCorrectes(lig, col) ;
 		assert !estCaseNoire(lig, col) ;
-		proposition.setCellule(lig, col, new SimpleStringProperty(String.valueOf(prop))) ;
+		proposition.getCellule(lig, col).setValue(String.valueOf(prop));
 	}
 
 	public String getDefinition(int lig, int col, boolean horiz)
