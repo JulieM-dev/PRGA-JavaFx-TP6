@@ -16,7 +16,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class MainApp extends Application 
+public class MainTP6 extends Application 
 {
 	public int screenHeight = 600;
 	public int screenWidth = 800;
@@ -45,7 +45,7 @@ public class MainApp extends Application
         try {
             // Load the root view from the fxml file
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class
+            loader.setLocation(MainTP6.class
                     .getResource("view/RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
@@ -67,7 +67,7 @@ public class MainApp extends Application
         try {
             // Load the view
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/" + view + ".fxml"));
+            loader.setLocation(MainTP6.class.getResource("view/" + view + ".fxml"));
             Pane theView = (Pane) loader.load();
 
             // Positionne la view au centre de l'affichage racine.

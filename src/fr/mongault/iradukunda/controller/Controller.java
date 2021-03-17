@@ -1,9 +1,9 @@
 package fr.mongault.iradukunda.controller;
 
-import fr.mongault.iradukunda.MainApp;
+import fr.mongault.iradukunda.MainTP6;
 
 public interface Controller {
-   void setMainApp(MainApp mainApp);
+   void setMainApp(MainTP6 mainApp);
    
    void init();
 

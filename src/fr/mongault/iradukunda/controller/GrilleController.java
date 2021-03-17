@@ -1,12 +1,12 @@
 package fr.mongault.iradukunda.controller;
 
-import fr.mongault.iradukunda.MainApp;
+import fr.mongault.iradukunda.MainTP6;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
 
 public class GrilleController implements Controller
 {
-	private MainApp mainApp;
+	private MainTP6 mainApp;
 	private static final String NOMMETHODE = " - Grille";
 	
 	@FXML
@@ -19,7 +19,7 @@ public class GrilleController implements Controller
 	}
 	
 	@Override
-	public void setMainApp(MainApp mainApp)
+	public void setMainApp(MainTP6 mainApp)
 	{
 		this.mainApp = mainApp;
 	}
