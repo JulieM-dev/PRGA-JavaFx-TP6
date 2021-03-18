@@ -1,6 +1,7 @@
 package fr.mongault.iradukunda.controller;
 
 import fr.mongault.iradukunda.MainTP6;
+import fr.mongault.iradukunda.model.ChargerGrilleAutre;
 import fr.mongault.iradukunda.model.MotsCroisesFactory;
 import fr.mongault.iradukunda.model.MotsCroisesTP6;
 import javafx.fxml.FXML;
@@ -40,8 +41,41 @@ public class GrilleController implements Controller
 	@Override
 	public void initialize()
 	{
-		motsCroises = MotsCroisesFactory.creerMotsCroises2x3();
+		ChargerGrilleAutre chargerGrille = new ChargerGrilleAutre();
+		motsCroises = chargerGrille.extraireGrille(6);
+		clearGrille();
+		createGrille();
 		
+		initProperties();
+		
+	}
+	
+	private void clearGrille()
+	{
+		monGridPane.getChildren().clear();
+	}
+	
+	private void createGrille()
+	{
+		int maxLig = motsCroises.getHauteur();
+		int maxCol= motsCroises.getLargeur();
+		for(int lig = 1; lig <= maxLig; lig++)
+		{
+			for( int col = 1; col <= maxCol; col++)
+			{
+				if(!motsCroises.estCaseNoire(lig, col))
+				{
+					TextField tf = new TextField();
+					tf.setPrefHeight(40);
+					tf.setPrefWidth(40);
+					monGridPane.add(tf ,col-1 ,lig-1);
+				}
+			}
+		}
+	}
+	
+	private void initProperties()
+	{
 		for (Node n : monGridPane.getChildren())
 		{
 			if (n instanceof TextField)
@@ -59,13 +93,21 @@ public class GrilleController implements Controller
 				String textV = motsCroises.getDefinition(lig, col, false);
 				
 				if(textH != null && textV != null) 
+				{
 					tf.setTooltip(new Tooltip("(horizontal / vertical): " + textH + " / " + textV));
-				
+					System.out.println("Double sur : "+ lig + " " + col);
+				}
 				else if(textH != null) 
+				{
 					tf.setTooltip(new Tooltip("(horizontal): " + textH));
-				
+					System.out.println("Horiz sur : "+ lig + " " + col);
+				}
 				else if(textV != null) 
+				{
 					tf.setTooltip(new Tooltip("(vertical): " +textV));
+					System.out.println("Verti sur : "+ lig + " " + col);
+				}
+					
 				
 				// 1.5 
 				tf.setOnMouseClicked((e) -> {this.clicCase(e);});
@@ -73,7 +115,6 @@ public class GrilleController implements Controller
 			}
 		}
 	}
-	
 	
 	@Override
 	public void setMainApp(MainTP6 mainApp)
