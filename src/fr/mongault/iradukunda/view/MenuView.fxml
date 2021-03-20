@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -10,7 +12,7 @@
 
 <AnchorPane minHeight="600.0" minWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.mongault.iradukunda.controller.MenuController">
    <children>
-      <Label layoutX="233.0" layoutY="60.0" text="Template JavaFx">
+      <Label layoutX="233.0" layoutY="60.0" text="Mots Croisés TP6">
          <font>
             <Font name="Consolas" size="38.0" />
          </font>
@@ -26,17 +28,12 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button mnemonicParsing="false" onAction="#handleB1" text="Home">
+            <Button mnemonicParsing="false" onAction="#handleRandom" text="Grille aléatoire">
                <font>
                   <Font name="Nirmala UI Bold" size="17.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleB2" text="Page 2" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Nirmala UI Bold" size="17.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#handleB3" text="About" GridPane.rowIndex="2">
+            <Button mnemonicParsing="false" onAction="#handleQuit" text="Quitter" GridPane.rowIndex="2">
                <font>
                   <Font name="Nirmala UI Bold" size="17.0" />
                </font>
@@ -46,6 +43,19 @@
                   <Font name="Nirmala UI Bold" size="17.0" />
                </font>
             </Button>
+            <ComboBox fx:id="comboChoix" onAction="#handleChoix" prefHeight="30.0" prefWidth="136.0" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets top="30.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <Label text="Choix de la grille" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets bottom="30.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Nirmala UI Bold" size="17.0" />
+               </font>
+            </Label>
          </children>
       </GridPane>
    </children>

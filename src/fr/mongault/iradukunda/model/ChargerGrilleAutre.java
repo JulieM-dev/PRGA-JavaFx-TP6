@@ -2,7 +2,9 @@ package fr.mongault.iradukunda.model;
 
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ChargerGrilleAutre {
@@ -18,22 +20,57 @@ public class ChargerGrilleAutre {
     }
 
     public static Connection connecterBD() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/base_bousse?autoReconnect=true&useSSL=false", "root", "");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/base_bousse?autoReconnect=true&useSSL=false", "root", "root");
     }
 
-    public Map<Integer, String> grillesDisponibles() {
-        Map<Integer, String> map = new HashMap<>();
+    public List<GrilleInfo> grillesDisponibles() {
+        List<GrilleInfo> grilles = new ArrayList<GrilleInfo>();
         ResultSet reqSelection = execReqSelection("select num_grille, nom_grille from tp5_grille");
         try {
             while (reqSelection.next()) {
-                map.put(reqSelection.getInt(1), reqSelection.getString(2));
+                grilles.add(new GrilleInfo(reqSelection.getInt(1), reqSelection.getString(2)));
             }
         } catch (Exception e) {
             System.out.println("erreur reqSelection.next() pour la requête - select num_grille, nom_grille from tp5_grille");
             e.printStackTrace();
         }
         fermerConnexionBd();
-        return map;
+        return grilles;
+    }
+    
+    public GrilleInfo getRandomGrille()
+    {
+    	ResultSet infos = execReqSelection("SELECT num_grille, nom_grille FROM tp5_grille ORDER BY RAND() LIMIT 1");
+    	try
+		{
+    		if(infos.next())
+    		{
+    			return new GrilleInfo(infos.getInt(1), infos.getString(2));
+    		}
+			
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return null;
+    }
+    
+    public String getNomGrille(int num_grille)
+    {
+    	ResultSet nom = execReqSelection("SELECT nom_grille FROM tp5_grille WHERE num_grille = '" + num_grille + "'");
+    	try
+		{
+    		if(nom.next())
+    		{
+    			return nom.getString(1);
+    		}
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
     }
 
     public static MotsCroisesTP6 extraireGrille(int numGrille) {
@@ -57,7 +94,7 @@ public class ChargerGrilleAutre {
         try {
             while (reqSelection.next()) {
             	
-            	char[] sols = reqSelection.getString("solution").toCharArray();
+            	char[] sols = reqSelection.getString("solution").toUpperCase().toCharArray();
                 int lig = reqSelection.getInt("ligne");
                 int col = reqSelection.getInt("colonne");
                 

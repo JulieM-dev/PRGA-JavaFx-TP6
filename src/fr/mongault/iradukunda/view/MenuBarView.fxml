@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="26.0" minWidth="249.0" prefHeight="26.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.mongault.iradukunda.controller.MenuController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleHome" text="Menu principal" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleRandom" text="Grille aléatoire" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleQuit" text="Quitter" />
+               </items></Menu>
+        </menus>
+      </MenuBar>
+      <ComboBox fx:id="comboChoix" layoutX="64.0" maxHeight="26.0" maxWidth="140.0" minHeight="26.0" minWidth="140.0" onAction="#handleChoix" prefHeight="26.0" prefWidth="140.0" promptText="Choix de la grille" AnchorPane.leftAnchor="64.0" />
+   </children>
+</AnchorPane>

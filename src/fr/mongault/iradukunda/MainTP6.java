@@ -1,5 +1,5 @@
 /**
- * JavaFX Template to make easy applications fast!
+ * JavaFX TP6 PRGA
  * 
  * @author JulienMongault
  */
@@ -26,6 +26,8 @@ public class MainTP6 extends Application
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	
+	private static int num_grille = 0;
+	
 
 	@Override
 	public void start(Stage primaryStage) 
@@ -37,8 +39,9 @@ public class MainTP6 extends Application
         //The root of your application
         initRootLayout();
         
+        
         //TODO Place here your home page
-        showView("VueTP6");
+        showView("MenuView");
 	}
 	
     private void initRootLayout() {
@@ -56,7 +59,11 @@ public class MainTP6 extends Application
             // Donne l'accès au controleur à l'application main.
             RootController controleur = loader.getController();
             controleur.setMainApp(this);
-
+            
+            // Génère le menuBar et le positionne en haut de l'affichage racine
+            Pane theView = generateView("MenuBarView");
+            rootLayout.setTop(theView);
+            
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -65,21 +72,49 @@ public class MainTP6 extends Application
 
     public void showView(String view) {
         try {
-            // Load the view
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainTP6.class.getResource("view/" + view + ".fxml"));
-            Pane theView = (Pane) loader.load();
-
+            Pane theView = generateView(view);
             // Positionne la view au centre de l'affichage racine.
             rootLayout.setCenter(theView);
-
-            // Récupère le controller et lui donne l'accès à l'application MainApp.
-            Controller controller = loader.getController();
-            controller.setMainApp(this);
-            this.primaryStage.setTitle(TITLE + controller.getNOMMETHODE());
+            
+            if(view.equals("MenuView"))
+            {
+            	// Cache le menuBar
+            	rootLayout.getChildren().get(0).setVisible(false);
+            }
+            else
+            {
+            	// Montre le menuBar
+            	rootLayout.getChildren().get(0).setVisible(true);
+            }
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    private Pane generateView(String view) throws IOException
+    {
+        // Load the view
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainTP6.class.getResource("view/" + view + ".fxml"));
+        Pane theView = (Pane) loader.load();
+
+        // Récupère le controller et lui donne l'accès à l'application MainApp.
+        Controller controller = loader.getController();
+        controller.setMainApp(this);
+        controller.initialize();
+        this.primaryStage.setTitle(TITLE + controller.getNOMMETHODE());
+        return theView;
+    }
+    
+    public int getNumGrille()
+    {
+    	return num_grille;
+    }
+    
+    public void setNumGrille(int num_grille)
+    {
+    	this.num_grille = num_grille;
     }
 	
 	public static void main(String[] args) 
