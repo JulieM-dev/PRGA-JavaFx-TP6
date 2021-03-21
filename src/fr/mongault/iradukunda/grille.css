@@ -1,0 +1,34 @@
+#labelToutBon
+{
+	-fx-background-color : black ;
+}
+
+#tfCase
+{
+	-fx-display-caret: false;
+	-fx-font-weight: bold;
+	-fx-border-color : black;
+	-fx-font-size: 15px ;
+	-fx-alignment: center ;
+}
+
+#tfCase:focused
+{
+	-fx-border-color : blue;
+	-fx-border-width: 3px;
+}
+
+
+
+#tfValidCase
+{
+	-fx-display-caret: false;
+	-fx-font-weight: bold;
+	-fx-background-color: #27ae60 ;
+	-fx-border-color : black;
+}
+
+#tfValidCase:focused
+{
+	-fx-background-color: green ;
+}

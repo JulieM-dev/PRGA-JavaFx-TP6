@@ -54,6 +54,7 @@ public class MainTP6 extends Application
 
             // Affiche la scene dans le layout racine.
             Scene scene = new Scene(rootLayout);
+            scene.getStylesheets().add(getClass().getResource("grille.css").toExternalForm());
             primaryStage.setScene(scene);
 
             // Donne l'accès au controleur à l'application main.

@@ -32,6 +32,13 @@ public class MotsCroisesTP6 implements SpecifMotsCroises
 		assert !estCaseNoire(lig, col) ;
 		setProposition(lig, col, getSolution(lig, col));
 	}
+	
+	public boolean propositionEstCorrecte(int lig, int col)
+	{
+		assert coordCorrectes(lig, col) ;
+		assert !estCaseNoire(lig, col) ;
+		return getProposition(lig, col) == getSolution(lig, col);
+	}
 
 	public int getHauteur()
 	{
