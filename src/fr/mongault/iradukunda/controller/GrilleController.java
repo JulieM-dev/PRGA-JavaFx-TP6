@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import fr.mongault.iradukunda.MainTP6;
+import fr.mongault.iradukunda.model.ChargerGrille;
 import fr.mongault.iradukunda.model.ChargerGrilleAutre;
 import fr.mongault.iradukunda.model.GrilleInfo;
 import fr.mongault.iradukunda.model.MotsCroisesFactory;
@@ -107,7 +108,7 @@ public class GrilleController implements Controller
 	{
 		if(mainApp != null)
 		{
-			ChargerGrilleAutre chargerGrille = new ChargerGrilleAutre();
+			ChargerGrille chargerGrille = new ChargerGrilleAutre();
 			int num_grille = mainApp.getNumGrille();
 			// Si pas de grille choisie, choisir une grille au hasard
 			if(num_grille <= 0)

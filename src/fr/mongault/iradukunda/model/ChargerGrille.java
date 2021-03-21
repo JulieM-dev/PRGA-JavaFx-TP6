@@ -26,13 +26,13 @@ public class ChargerGrille
 	public Map<Integer, String> grillesDisponibles()
 	{
 		Map<Integer, String> map = new HashMap<>();
-        ResultSet reqSelection = execReqSelection("select num_grille, nom_grille from tp5_grille");
+        ResultSet result = execReqSelection("select num_grille, nom_grille from tp5_grille");
         try {
-            while (reqSelection.next()) {
-                map.put(reqSelection.getInt(1), reqSelection.getString(2));
+            while (result.next()) {
+                map.put(result.getInt(1), result.getString(2));
             }
         } catch (Exception e) {
-            System.out.println("erreur reqSelection.next() pour la requête - select num_grille, nom_grille from tp5_grille");
+            System.out.println("erreur result.next() pour la requête - select num_grille, nom_grille from tp5_grille");
             e.printStackTrace();
         }
         fermerConnexionBd();
@@ -41,59 +41,47 @@ public class ChargerGrille
 	public MotsCroisesTP6 extraireGrille(int numGrille)
 	{
 		MotsCroisesTP6 motsCroises = null;
-        ResultSet reqSelection = execReqSelection("select hauteur, largeur from tp5_grille where num_grille = '" + numGrille + "'");
+		// Requetes 
+		String queryGrille = String.format("SELECT hauteur, largeur FROM tp5_grille WHERE num_grille = %s", numGrille);
+        String queryMots = String.format("SELECT ligne, colonne, horizontal, solution, definition FROM tp5_mot WHERE num_grille = %s", numGrille);
+
         try {
-            if (reqSelection.next()) motsCroises = new MotsCroisesTP6(reqSelection.getInt(1), reqSelection.getInt(2));
-        } catch (Exception e) {
-            System.out.println("erreur reqSelection.next() pour la requête - select largeur, hauteur from tp5_grille where num_grille = '" + numGrille + "'");
-            e.printStackTrace();
-        }
-        try {
-			System.out.println(reqSelection.getInt(1));
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-        reqSelection = execReqSelection("select ligne, colonne, horizontal, solution, definition from tp5_grille\n" +
-                "inner join tp5_mot t5m on tp5_grille.num_grille = t5m.num_grille where tp5_grille.num_grille = '" + numGrille + "'");
-        assert motsCroises != null;
-        try {
-            while (reqSelection.next()) {
-            	
-            	char[] sols = reqSelection.getString("solution").toCharArray();
-                int lig = reqSelection.getInt("ligne");
-                int col = reqSelection.getInt("colonne");
+        	// On créé la base de la grille
+        	ResultSet result = execReqSelection(queryGrille);
+    		if (result.next()) motsCroises = new MotsCroisesTP6(result.getInt("hauteur"), result.getInt("largeur"));
+            
+    		// On rempli la grille 
+            result = execReqSelection(queryMots);
+            while (result.next()) 
+            {
+         	
+            	char[] solArr = result.getString("solution").toCharArray();
+                int lig = result.getInt("ligne");
+                int col = result.getInt("colonne");
                 
-                int maxIndx = sols.length;
-                if (reqSelection.getInt("horizontal") == 1) 
+                int maxIndx = solArr.length;
+                if (result.getInt("horizontal") == 1) 
                 {
-                	motsCroises.setDefinition(lig, col, true, reqSelection.getString("definition"));
+                	// On rempli selon l'axe horizontal
+                	motsCroises.setDefinition(lig, col, true, result.getString("definition"));
                 	for (int colIndx = 0; colIndx < maxIndx; colIndx++) 
                 	{
                 		motsCroises.setCaseNoire(lig, col + colIndx, false);
-                        motsCroises.setSolution(lig, col + colIndx, sols[colIndx]); // Horizontal
+                        motsCroises.setSolution(lig, col + colIndx, solArr[colIndx]); // Horizontal
                 	}
                 }
                 else
                 {
-                	motsCroises.setDefinition(lig, col, false, reqSelection.getString("definition"));
+                	// On rempli selon l'axe vertical
+                	motsCroises.setDefinition(lig, col, false, result.getString("definition"));
                 	for (int ligIndx = 0; ligIndx < maxIndx; ligIndx++) 
                 	{
                 		motsCroises.setCaseNoire(lig + ligIndx, col, false);
-                        motsCroises.setSolution(lig + ligIndx, col, sols[ligIndx]); // Vertical
+                        motsCroises.setSolution(lig + ligIndx, col, solArr[ligIndx]); // Vertical
                 	}
-                }
-                
-                for (int i = 0; i < sols.length; i++) {
-                    if (reqSelection.getInt("horizontal") == 1) {
-                    	
-                    } else {
-                    	
-                    }
                 }
             }
         } catch (Exception e) {
-            System.out.println("erreur extraireGrille()");
             e.printStackTrace();
         }
         fermerConnexionBd();
@@ -104,7 +92,7 @@ public class ChargerGrille
         try {
             connexion.close();
         } catch (Exception e) {
-            System.out.println("Erreur sur fermeture connexion");
+        	e.printStackTrace();
         }
     }
 
@@ -121,19 +109,5 @@ public class ChargerGrille
         return resultatReq;
     }
 
-    // Fonction pour insérer/update des requêtes SQL
-    public int execReqMaj(String laRequete) {
-        new ChargerGrilleAutre();
-        int nbMaj = 0;
-        try {
-            Statement s = connexion.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            nbMaj = s.executeUpdate(laRequete);
-            s.close();
-        } catch (Exception er) {
-            er.printStackTrace();
-            System.out.println("Échec requête : " + laRequete);
-        }
-        return nbMaj;
-    }
 	
 }

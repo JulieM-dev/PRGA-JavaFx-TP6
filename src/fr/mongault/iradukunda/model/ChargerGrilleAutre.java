@@ -92,7 +92,7 @@ public class ChargerGrilleAutre {
                 "inner join tp5_mot t5m on tp5_grille.num_grille = t5m.num_grille where tp5_grille.num_grille = '" + numGrille + "'");
         assert motsCroises != null;
         try {
-            while (reqSelection.next()) {
+            	while (reqSelection.next()) {
             	
             	char[] sols = reqSelection.getString("solution").toUpperCase().toCharArray();
                 int lig = reqSelection.getInt("ligne");
