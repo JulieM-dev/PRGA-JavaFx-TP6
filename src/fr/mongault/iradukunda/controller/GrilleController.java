@@ -8,6 +8,7 @@ import fr.mongault.iradukunda.model.ChargerGrilleAutre;
 import fr.mongault.iradukunda.model.GrilleInfo;
 import fr.mongault.iradukunda.model.MotsCroisesFactory;
 import fr.mongault.iradukunda.model.MotsCroisesTP6;
+import javafx.animation.ScaleTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.Event;
@@ -21,6 +22,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 public class GrilleController implements Controller
 {
@@ -210,6 +212,23 @@ public class GrilleController implements Controller
 				    }
 				});
 				
+				tf.textProperty().addListener(new ChangeListener<String>()
+						{
+
+							@Override
+							public void changed(ObservableValue<? extends String> observable, String oldValue,
+									String newValue)
+							{
+								ScaleTransition st = new ScaleTransition(Duration.millis(200), tf);
+						        st.setFromX(1.2);
+						        st.setFromY(1.2);
+						        st.setToX(1);
+						        st.setToY(1);
+						        st.play();
+							}
+							
+						}
+						);
 				tf.addEventFilter(KeyEvent.KEY_TYPED, (event) -> 
 				{
 					typedCase(event);
@@ -219,6 +238,8 @@ public class GrilleController implements Controller
 					keyPressedCase(event);
 				});
 				
+				
+		        
 			}
 		}
 	}
@@ -291,10 +312,10 @@ public class GrilleController implements Controller
 			{
 				nextCase = (TextField) getCase(posLig+1, posCol);
 			}
-			nextCase.setStyle("-fx-background-color: #dfe6e9 ;");
+			nextCase.setStyle("-fx-border-color: #2980b9 ; -fx-border-width: 4px; -fx-border-style: dotted;");
 		}
 		actualCase = (TextField) getCase(posLig, posCol);
-		actualCase.setStyle("-fx-background-color: #d3f5f5 ;");
+		actualCase.setStyle("-fx-border-color: blue ; -fx-border-width: 4px;");
 		
 	}
 	

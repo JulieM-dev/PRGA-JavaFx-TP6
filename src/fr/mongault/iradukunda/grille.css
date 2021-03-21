@@ -9,14 +9,9 @@
 	-fx-font-weight: bold;
 	-fx-border-color : black;
 	-fx-font-size: 15px ;
-	-fx-alignment: center ;
+	-fx-alignment: center ; 
 }
 
-#tfCase:focused
-{
-	-fx-border-color : blue;
-	-fx-border-width: 3px;
-}
 
 
 
@@ -26,6 +21,8 @@
 	-fx-font-weight: bold;
 	-fx-background-color: #27ae60 ;
 	-fx-border-color : black;
+	-fx-font-size: 15px ;
+	-fx-alignment: center ; 
 }
 
 #tfValidCase:focused
