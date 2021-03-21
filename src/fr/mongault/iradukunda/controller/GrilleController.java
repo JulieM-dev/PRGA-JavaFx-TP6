@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 import fr.mongault.iradukunda.MainTP6;
 import fr.mongault.iradukunda.model.ChargerGrille;
-import fr.mongault.iradukunda.model.ChargerGrilleAutre;
 import fr.mongault.iradukunda.model.GrilleInfo;
 import fr.mongault.iradukunda.model.MotsCroisesFactory;
 import fr.mongault.iradukunda.model.MotsCroisesTP6;

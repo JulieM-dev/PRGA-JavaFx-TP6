@@ -13,7 +13,7 @@ public class ChargerGrille
 	
 	public static Connection connecterBD() throws SQLException
 	{
-		return DriverManager.getConnection("jdbc:mysql://localhost:3306/base_bousse?autoReconnect=true&useSSL=false", "root", "");
+		return DriverManager.getConnection("jdbc:mysql://localhost:3306/base_bousse?autoReconnect=true&useSSL=false", "root", "root");
 	}
 	
 	// Retourne la liste des grilles disponibles dans la B.D.
@@ -135,7 +135,6 @@ public class ChargerGrille
 
     // Fonction pour select des requêtes SQL
     public ResultSet execReqSelection(String laRequete) {
-        new ChargerGrilleAutre();
         ResultSet resultatReq = null;
         try {
             Statement requete = connexion.createStatement();

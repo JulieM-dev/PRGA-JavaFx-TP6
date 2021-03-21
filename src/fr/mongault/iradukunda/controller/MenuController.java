@@ -6,7 +6,7 @@ import java.util.Map;
 import com.sun.webkit.ContextMenu.ShowContext;
 
 import fr.mongault.iradukunda.MainTP6;
-import fr.mongault.iradukunda.model.ChargerGrilleAutre;
+import fr.mongault.iradukunda.model.ChargerGrille;
 import fr.mongault.iradukunda.model.GrilleInfo;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -71,7 +71,7 @@ public class MenuController implements Controller
 	{
 		if(mainApp != null)
 		{
-			ChargerGrilleAutre chargerGrille = new ChargerGrilleAutre();
+			ChargerGrille chargerGrille = new ChargerGrille();
 			List<GrilleInfo> grilles = chargerGrille.grillesDisponibles();
 			
 			if(comboChoix != null)
