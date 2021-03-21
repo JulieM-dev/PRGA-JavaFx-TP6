@@ -108,7 +108,7 @@ public class GrilleController implements Controller
 	{
 		if(mainApp != null)
 		{
-			ChargerGrille chargerGrille = new ChargerGrilleAutre();
+			ChargerGrille chargerGrille = new ChargerGrille();
 			int num_grille = mainApp.getNumGrille();
 			// Si pas de grille choisie, choisir une grille au hasard
 			if(num_grille <= 0)

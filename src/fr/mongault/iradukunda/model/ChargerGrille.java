@@ -13,31 +13,68 @@ public class ChargerGrille
 	
 	public static Connection connecterBD() throws SQLException
 	{
-		Connection connect ;
-		connect = DriverManager.getConnection("xxx","user_12345678","yyy");
-		return connect ;
+		return DriverManager.getConnection("jdbc:mysql://localhost:3306/base_bousse?autoReconnect=true&useSSL=false", "root", "");
 	}
+	
 	// Retourne la liste des grilles disponibles dans la B.D.
 	// Chaque grille est décrite par la concaténation des valeurs
 	// respectives des colonnes nom_grille, hauteur et largeur.
 	// L’élément de liste ainsi obtenu est indexé par le numéro de
 	// la grille (colonne num_grille).
 	// Ainsi "Français débutants (7x6)" devrait être associé à la clé 10
-	public Map<Integer, String> grillesDisponibles()
-	{
-		Map<Integer, String> map = new HashMap<>();
-        ResultSet result = execReqSelection("select num_grille, nom_grille from tp5_grille");
+	public List<GrilleInfo> grillesDisponibles() {
+		// GrilleInfo contient l'identifiant d'une grille avec son nom
+        List<GrilleInfo> grilles = new ArrayList<GrilleInfo>();
+        ResultSet reqSelection = execReqSelection("select num_grille, nom_grille from tp5_grille");
         try {
-            while (result.next()) {
-                map.put(result.getInt(1), result.getString(2));
+            while (reqSelection.next()) {
+                grilles.add(new GrilleInfo(reqSelection.getInt(1), reqSelection.getString(2)));
             }
         } catch (Exception e) {
-            System.out.println("erreur result.next() pour la requête - select num_grille, nom_grille from tp5_grille");
             e.printStackTrace();
         }
         fermerConnexionBd();
-        return map;
-	}
+        return grilles;
+    }
+    
+    public GrilleInfo getRandomGrille()
+    {
+    	ResultSet infos = execReqSelection("SELECT num_grille, nom_grille FROM tp5_grille ORDER BY RAND() LIMIT 1");
+    	try
+		{
+    		if(infos.next())
+    		{
+    			return new GrilleInfo(infos.getInt(1), infos.getString(2));
+    		}
+			
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return null;
+    }
+    
+    // Retourne le nom d'une grille en fonction de son ID
+    public String getNomGrille(int numGrille)
+    {
+    	ResultSet nom = execReqSelection(String.format("SELECT nom_grille FROM tp5_grille WHERE num_grille = %s", numGrille));
+    	try
+		{
+    		// pas de boucle car une seule valeur attendu
+    		if(nom.next())
+    		{
+    			return nom.getString(1);
+    		}
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+    }
+
+    // Retourne un objet MotsCroisesTP6 récupéré depuis la BDD
 	public MotsCroisesTP6 extraireGrille(int numGrille)
 	{
 		MotsCroisesTP6 motsCroises = null;
