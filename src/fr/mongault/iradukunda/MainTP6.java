@@ -1,7 +1,7 @@
 /**
  * JavaFX TP6 PRGA
  * 
- * @author JulienMongault
+ * @author JMongault
  */
 package fr.mongault.iradukunda;
 

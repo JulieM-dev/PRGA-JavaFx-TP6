@@ -1,3 +1,8 @@
+/**
+ * JavaFX TP6 PRGA
+ * 
+ * @author JulienMongault
+ */
 package fr.mongault.iradukunda.model;
 
 import java.sql.* ;
@@ -13,7 +18,7 @@ public class ChargerGrille
 	
 	public static Connection connecterBD() throws SQLException
 	{
-		return DriverManager.getConnection("jdbc:mysql://localhost:3306/base_bousse?autoReconnect=true&useSSL=false", "root", "root");
+		return DriverManager.getConnection("jdbc:mysql://localhost:3306/base_bousse?autoReconnect=true&useSSL=false", "root", "");
 	}
 	
 	// Retourne la liste des grilles disponibles dans la B.D.
@@ -24,7 +29,7 @@ public class ChargerGrille
 	// Ainsi "Français débutants (7x6)" devrait être associé à la clé 10
 	public List<GrilleInfo> grillesDisponibles() {
 		// GrilleInfo contient l'identifiant d'une grille avec son nom
-        List<GrilleInfo> grilles = new ArrayList<GrilleInfo>();
+		List<GrilleInfo> grilles = new ArrayList<GrilleInfo>();
         ResultSet reqSelection = execReqSelection("select num_grille, nom_grille from tp5_grille");
         try {
             while (reqSelection.next()) {
@@ -80,7 +85,7 @@ public class ChargerGrille
 		MotsCroisesTP6 motsCroises = null;
 		// Requetes 
 		String queryGrille = String.format("SELECT hauteur, largeur FROM tp5_grille WHERE num_grille = %s", numGrille);
-        String queryMots = String.format("SELECT ligne, colonne, horizontal, solution, definition FROM tp5_mot WHERE num_grille = %s", numGrille);
+		String queryMots = String.format("SELECT ligne, colonne, horizontal, solution, definition FROM tp5_mot WHERE num_grille = %s", numGrille);
 
         try {
         	// On créé la base de la grille
@@ -92,7 +97,7 @@ public class ChargerGrille
             while (result.next()) 
             {
          	
-            	char[] solArr = result.getString("solution").toCharArray();
+            	char[] solArr = result.getString("solution").toUpperCase().toCharArray();
                 int lig = result.getInt("ligne");
                 int col = result.getInt("colonne");
                 
